@@ -8,15 +8,24 @@
 
 import UIKit
 import MessageUI
+import CoreLocation
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate, CLLocationManagerDelegate {
     
     var pressed = false
+    
+    let locationManager = CLLocationManager()  //定位用的
+    var myLocation:CLLocationCoordinate2D?     //把位置給導航用的變數
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        //定位設定
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.activityType = .automotiveNavigation
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation() //開始執行
     }
 
     
@@ -84,7 +93,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             UIApplication.shared.open(URL(string:"App-Prefs:root=General")!, options: [:], completionHandler: nil)
             
         case 4:
-            print("xxx")
+            let lat = myLocation?.latitude
+            let long = myLocation?.longitude
+            
+            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+                print("lat = \(lat!)")
+                print("long = \(long!)")
+                UIApplication.shared.open(URL(string:"comgooglemaps://?saddr=\(lat!),\(long!)&daddr=25.052551,121.532302&directionsmode=transit")!, options: [:], completionHandler: nil)
+            } else {
+                print("Can't use comgooglemaps://");
+            }
         default:
             let mailComposeViewController = configureMail()
             if MFMailComposeViewController.canSendMail()
@@ -98,6 +116,17 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
         
 
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard let currentLocation = locations.last else
+        {
+            print("CurrentLocation is nil")
+            return
+        }
+        myLocation = currentLocation.coordinate
     }
     
     
@@ -124,6 +153,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     
+    //MARK: - Mail設定
     func configureMail() -> MFMailComposeViewController
     {
         let mailComposerVC = MFMailComposeViewController()
