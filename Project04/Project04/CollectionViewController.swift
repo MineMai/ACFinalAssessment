@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
     
     var pressed = false
     
@@ -85,18 +85,20 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             
         case 4:
             print("xxx")
-        case 5:
-            print("xxx")
         default:
-            print("xxx")
+            let mailComposeViewController = configureMail()
+            if MFMailComposeViewController.canSendMail()
+            {
+                present(mailComposeViewController, animated: true, completion: nil)
+            }
+            else
+            {
+                showSendMailErrorAlert()
+            }
         }
         
 
     }
-    
-    
-    
-    
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -120,6 +122,43 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
     }
+    
+    
+    func configureMail() -> MFMailComposeViewController
+    {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients(["yenshao.c@gmail.com"])
+        mailComposerVC.setSubject("測試信件")
+        mailComposerVC.setMessageBody("test...\n", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert()
+    {
+        let sendMailErrorAlert = UIAlertController(title: "無法送出", message: "請檢查您的裝置，再試一次", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+        sendMailErrorAlert.addAction(ok)
+        present(sendMailErrorAlert, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        
+        switch result {
+        case MFMailComposeResult.cancelled:
+            print("Cancelled mail")
+        case MFMailComposeResult.sent:
+            print("Mail Sent")
+        case MFMailComposeResult.saved:
+            print("Mail saved")
+        default:
+            print("失敗")
+            break
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
     
 
 }
