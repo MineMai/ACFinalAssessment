@@ -59,6 +59,7 @@ class TableViewController: UITableViewController, UINavigationControllerDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        performSegue(withIdentifier: "detailSegue", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -93,6 +94,13 @@ class TableViewController: UITableViewController, UINavigationControllerDelegate
             vc.takePhoto = takeImage
             vc.userInputMsgDelegate = self
         }
+        if segue.identifier == "detailSegue"
+        {
+            let vc = segue.destination as! DetailVC
+            let index = tableView.indexPathForSelectedRow?.row
+            vc.myImage = tableListImage[index!]
+            vc.myText = tableListText[index!]
+        }
     }
     
     
@@ -105,17 +113,18 @@ class TableViewController: UITableViewController, UINavigationControllerDelegate
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
+        
+        if editingStyle == .delete
+        {
+            tableListImage.remove(at: indexPath.row)
+            tableListText.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
+    
 
     
 

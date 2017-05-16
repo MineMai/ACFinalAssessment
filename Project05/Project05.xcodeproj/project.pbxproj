@@ -15,6 +15,7 @@
 		1191D2591ECAE7E4009247E1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1191D2581ECAE7E4009247E1 /* TableViewController.swift */; };
 		1191D25B1ECAE7FC009247E1 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1191D25A1ECAE7FC009247E1 /* TableViewCell.swift */; };
 		1191D25D1ECAFD17009247E1 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1191D25C1ECAFD17009247E1 /* CameraVC.swift */; };
+		1191D25F1ECB0D85009247E1 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1191D25E1ECB0D85009247E1 /* DetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1191D2581ECAE7E4009247E1 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		1191D25A1ECAE7FC009247E1 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		1191D25C1ECAFD17009247E1 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		1191D25E1ECB0D85009247E1 /* DetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				1191D2581ECAE7E4009247E1 /* TableViewController.swift */,
 				1191D25A1ECAE7FC009247E1 /* TableViewCell.swift */,
 				1191D25C1ECAFD17009247E1 /* CameraVC.swift */,
+				1191D25E1ECB0D85009247E1 /* DetailVC.swift */,
 			);
 			path = Project05;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 				1191D25D1ECAFD17009247E1 /* CameraVC.swift in Sources */,
 				1191D2591ECAE7E4009247E1 /* TableViewController.swift in Sources */,
 				1191D2441ECAE6E5009247E1 /* AppDelegate.swift in Sources */,
+				1191D25F1ECB0D85009247E1 /* DetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

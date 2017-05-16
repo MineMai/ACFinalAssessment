@@ -26,7 +26,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="euc-JM-p9k">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="euc-JM-p9k">
                                             <rect key="frame" x="13" y="6.5" width="75" height="75"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="75" id="9gn-1O-kuC"/>
@@ -71,6 +71,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="7xU-4b-5gg" kind="show" identifier="CameraSegue" id="9rI-Xl-itQ"/>
+                        <segue destination="nS9-fq-Ihx" kind="show" identifier="detailSegue" id="y3L-RI-mLe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPp-Qe-c93" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -126,6 +127,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPk-5b-c6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1968.8" y="124.58770614692655"/>
+        </scene>
+        <!--DetailVC-->
+        <scene sceneID="dV8-L1-DP5">
+            <objects>
+                <viewController id="nS9-fq-Ihx" customClass="DetailVC" customModule="Project05" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="B1h-kg-9Gp"/>
+                        <viewControllerLayoutGuide type="bottom" id="YLq-ja-7Pk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="H3e-hW-bKH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="sQf-jQ-gui">
+                                <rect key="frame" x="21" y="74" width="333" height="360"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="360" id="djo-uE-KX2"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="nS9-fq-Ihx" id="YsB-ji-kBh"/>
+                                </connections>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8x-Hf-6Wg">
+                                <rect key="frame" x="21" y="474" width="333" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="333" id="9aT-ju-bgJ"/>
+                                    <constraint firstAttribute="height" constant="21" id="e1Z-nI-QUJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="E8x-Hf-6Wg" firstAttribute="top" secondItem="sQf-jQ-gui" secondAttribute="bottom" constant="40" id="LAp-fd-UTu"/>
+                            <constraint firstItem="sQf-jQ-gui" firstAttribute="leading" secondItem="H3e-hW-bKH" secondAttribute="leadingMargin" constant="5" id="YGF-Ye-0o8"/>
+                            <constraint firstItem="E8x-Hf-6Wg" firstAttribute="centerX" secondItem="H3e-hW-bKH" secondAttribute="centerX" id="odR-jN-xlJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sQf-jQ-gui" secondAttribute="trailing" constant="5" id="wRH-C6-xPP"/>
+                            <constraint firstItem="sQf-jQ-gui" firstAttribute="top" secondItem="B1h-kg-9Gp" secondAttribute="bottom" constant="10" id="zZ7-IF-17y"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="R0p-vc-0dc">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="JAv-it-6uA">
+                            <connections>
+                                <action selector="shareBtn:" destination="nS9-fq-Ihx" id="oYw-B4-LsH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="detailLabel" destination="E8x-Hf-6Wg" id="TCD-kD-hfm"/>
+                        <outlet property="detailScrollView" destination="sQf-jQ-gui" id="I2s-Dh-EXD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e9G-hS-cEZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1968.8" y="860.41979010494754"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="29H-ig-OB1">
