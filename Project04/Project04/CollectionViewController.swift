@@ -9,6 +9,7 @@
 import UIKit
 import MessageUI
 import CoreLocation
+import CoreMotion
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate, CLLocationManagerDelegate {
     
@@ -16,6 +17,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
     let locationManager = CLLocationManager()  //定位用的
     var myLocation:CLLocationCoordinate2D?     //把位置給導航用的變數
+    
+    var pedometer:CMPedometer! //計步用的
+    var countStep:NSNumber!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +54,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         
         if indexPath.row == 1
         {
+            cell.numberLabel.text = "Red or Blue"
             if pressed
             {
                 cell.backgroundColor = UIColor.red
@@ -60,8 +65,36 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             }
             
         }
+        else if indexPath.row == 0
+        {
+            cell.backgroundColor = UIColor.magenta
+            cell.numberLabel.text = "Alert"
+        }
+        else if indexPath.row == 2
+        {
+            cell.backgroundColor = UIColor.brown
+            if let step = countStep
+            {
+                cell.numberLabel.text = "\(String(describing: step))步"
+            }
+            else
+            {
+                cell.numberLabel.text = "0步"
+            }
+        }
+        else if indexPath.row == 3
+        {
+            cell.backgroundColor = UIColor.cyan
+            cell.numberLabel.text = "Setting"
+        }
+        else if indexPath.row == 4
+        {
+            cell.backgroundColor = UIColor.green
+            cell.numberLabel.text = "Map"
+        }
         else
         {
+            cell.numberLabel.text = "Mail"
             cell.backgroundColor = randomColor()
         }
         
@@ -89,6 +122,19 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             }
         case 2:
             print("xxx")
+            pedometer = CMPedometer() //產生計步器
+            if CMPedometer.isStepCountingAvailable()
+            {
+                pedometer.startUpdates(from: Date(), withHandler: { (data, error) in
+                    
+                    print("Step = \(String(describing: data!.numberOfSteps))")
+                    DispatchQueue.main.async {
+                        
+                        self.countStep = data!.numberOfSteps
+                        collectionView.reloadData()
+                    }
+                })
+            }
         case 3:
             UIApplication.shared.open(URL(string:"App-Prefs:root=General")!, options: [:], completionHandler: nil)
             

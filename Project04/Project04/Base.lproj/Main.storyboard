@@ -32,10 +32,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Wg-qq-c1s">
-                                            <rect key="frame" x="75" y="76" width="30" height="25"/>
+                                            <rect key="frame" x="25" y="76" width="130" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="6Pp-po-8Dk"/>
-                                                <constraint firstAttribute="width" constant="30" id="bDg-YK-Yc9"/>
+                                                <constraint firstAttribute="width" constant="130" id="bDg-YK-Yc9"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
