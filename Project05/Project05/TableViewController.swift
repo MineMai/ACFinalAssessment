@@ -114,10 +114,6 @@ class TableViewController: UITableViewController, UINavigationControllerDelegate
         imagePickVC.delegate = self
         self.show(imagePickVC, sender: self)
         
-        
-        
-        
-        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -161,6 +157,26 @@ class TableViewController: UITableViewController, UINavigationControllerDelegate
         
         if editingStyle == .delete
         {
+            let appDel = UIApplication.shared.delegate as? AppDelegate
+            guard let context = appDel?.persistentContainer.viewContext else {return}
+            do
+            {
+                let results = try context.fetch(UserData.fetchRequest())
+                for i in 0..<results.count
+                {
+                    if i == indexPath.row
+                    {
+                        guard let theData = results[i] as? UserData else {return}
+                        context.delete(theData)
+                        appDel?.saveContext()
+                    }
+                }
+            }
+            catch
+            {
+                
+            }
+            
             tableListImage.remove(at: indexPath.row)
             tableListText.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
