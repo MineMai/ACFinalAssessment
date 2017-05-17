@@ -10,17 +10,49 @@ import UIKit
 
 class TableViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UserInputMsg {
     
-    
     var takeImage:UIImage?
-    
     var tableListImage = [UIImage]()
     var tableListText = [String]()
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        loadData()
         
     }
+    
+    
+    func loadData()
+    {
+        let appDel = UIApplication.shared.delegate as? AppDelegate
+        guard let context = appDel?.persistentContainer.viewContext else {return}
+        do
+        {
+            let results = try context.fetch(UserData.fetchRequest())
+            for item in results
+            {
+                let theData = item as? UserData
+                print(theData?.userText ?? "")
+                tableListText.append(theData?.userText ?? "")
+                let userImage = theData?.value(forKey: "userImage") as! Data
+                let image = UIImage(data: userImage)
+                if let img = image
+                {
+                    tableListImage.append(img)
+                }
+                
+            }
+        }
+        catch
+        {
+            
+        }
+    }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -28,6 +60,17 @@ class TableViewController: UITableViewController, UINavigationControllerDelegate
     }
 
     func showMsg(image: UIImage, text: String) {
+        
+        let appDel = UIApplication.shared.delegate as? AppDelegate
+        guard let context = appDel?.persistentContainer.viewContext else {return}
+        let aUserData = UserData(context: context)
+        
+        aUserData.userText = text
+        
+        let img = UIImagePNGRepresentation(image)! as NSData
+        aUserData.userImage = img
+        appDel?.saveContext()
+        
         
         tableListImage.append(image)
         tableListText.append(text)
@@ -71,6 +114,10 @@ class TableViewController: UITableViewController, UINavigationControllerDelegate
         imagePickVC.delegate = self
         self.show(imagePickVC, sender: self)
         
+        
+        
+        
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -104,14 +151,9 @@ class TableViewController: UITableViewController, UINavigationControllerDelegate
     }
     
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
+    
+    
+    
 
     
     // Override to support editing the table view.
