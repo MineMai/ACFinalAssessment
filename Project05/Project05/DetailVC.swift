@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Social
 
 class DetailVC: UIViewController, UIScrollViewDelegate {
     
@@ -47,7 +48,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate {
     
     @IBAction func shareBtn(_ sender: UIBarButtonItem)
     {
+        guard let shareImage = myImage, let shareText = myText else { return }
         
+        let activityController = UIActivityViewController(activityItems: [shareText, shareImage], applicationActivities: nil)
+        self.present(activityController, animated: true, completion: nil)
         
     }
     
